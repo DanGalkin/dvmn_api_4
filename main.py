@@ -29,8 +29,20 @@ def download_photos(links, photos_name, folder_name, format_name):
 def fetch_spacex_last_launch():
 	download_photos(get_latest_spacex_photo_links(), "spacex", "images", "jpg")
 
+def get_hubble_photo_links(id):
+	api_method = "http://hubblesite.org/api/v3/image/"
+	api_request = api_method + str(id);
+	image_links = []
+	image_api_response = requests.get(api_request)
+	if image_api_response.ok:
+		for file in image_api_response.json()['image_files']:
+			image_links.append(file['file_url'])
+	return image_links
+
+
 def main():
-    fetch_spacex_last_launch()
+    for link in get_hubble_photo_links(1):
+    	print(link);
 
 if __name__ == '__main__':
     main()
