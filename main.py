@@ -39,10 +39,13 @@ def get_hubble_photo_links(id):
 			image_links.append(file['file_url'])
 	return image_links
 
+def get_file_extension(link):
+	return link.split('.')[-1];
+
 
 def main():
     for link in get_hubble_photo_links(1):
-    	print(link);
+    	print(link + "      " + get_file_extension(link));
 
 if __name__ == '__main__':
     main()
