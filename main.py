@@ -43,7 +43,8 @@ def get_hubble_photo_links(id):
 	return image_links
 
 def fetch_hubble_photo(id):
-	download_photos(get_hubble_photo_links(id), "hubble_" + str(id) + "_", "images")
+	best_image = [get_hubble_photo_links(id)[-1]]
+	download_photos(best_image, "hubble_" + str(id), "images")
 
 def main():
     fetch_hubble_photo(3000)
