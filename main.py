@@ -46,8 +46,20 @@ def fetch_hubble_photo(id):
 	best_image = [get_hubble_photo_links(id)[-1]]
 	download_photos(best_image, "hubble_" + str(id), "images")
 
+def get_hubble_photos_from_collection(collection):
+	api_method = "http://hubblesite.org/api/v3/images?page=all&collection_name="
+	api_request = api_method + collection;
+	collection_api_response = requests.get(api_request)
+	if collection_api_response.ok:
+		for photo in collection_api_response.json():
+			fetch_hubble_photo(photo["id"])
+			#debug print
+			print("Downloading picture id: " + str(photo["id"]))
+	else:
+		print("No such collection in Hubble API.")
+
 def main():
-    fetch_hubble_photo(3000)
+    get_hubble_photos_from_collection("printshop")
 
 if __name__ == '__main__':
     main()
