@@ -1,5 +1,6 @@
 import requests
 import os
+from PIL import Image
 
 def download_image(url, file_name):
     response = requests.get(url, verify=False)
@@ -11,8 +12,9 @@ def download_photos(links, photos_name, folder_name):
 	if not os.path.exists(folder_name):
 		os.makedirs(folder_name)
 	for link_number, link in enumerate(links):
-		file_name = "{}/{}{}.{}".format(folder_name, photos_name, link_number, get_file_extension(link))
+		file_name = "{}/{}_{}.{}".format(folder_name, photos_name, link_number, get_file_extension(link))
 		download_image(link, file_name)
+		centered_square_crop(file_name)
 
 def get_file_extension(link):
 	return link.split('.')[-1];
@@ -43,8 +45,10 @@ def get_hubble_photo_links(id):
 	return image_links
 
 def fetch_hubble_photo(id):
-	best_image = [get_hubble_photo_links(id)[-1]]
-	download_photos(best_image, "hubble_" + str(id), "images")
+	best_image_link = [get_hubble_photo_links(id)[-1]]
+	save_name = "hubble_" + str(id)
+	save_folder = "images"
+	download_photos(best_image_link, save_name, save_folder)
 
 def get_hubble_photos_from_collection(collection):
 	api_method = "http://hubblesite.org/api/v3/images?page=all&collection_name="
@@ -58,8 +62,24 @@ def get_hubble_photos_from_collection(collection):
 	else:
 		print("No such collection in Hubble API.")
 
+def centered_square_crop(image_file_name):
+	image = Image.open(image_file_name)
+	crop_left = 0;
+	crop_up = 0;
+	crop_right = 0;
+	crop_down = 0;
+	if image.width > image.height:
+		crop_left = int((image.width - image.height)/2);
+		crop_right = image.width - image.height - crop_left;
+	elif image.height > image.width:
+		crop_up = int((image.height - image.width)/2)
+		crop_down = image.height - image.width - crop_up;
+	crop_coordinates = (crop_left, crop_up, image.width - crop_right, image.height - crop_down)
+	cropped_image = image.crop(crop_coordinates)
+	cropped_image.save(image_file_name)
+
 def main():
-    get_hubble_photos_from_collection("printshop")
+    get_hubble_photos_from_collection("stsci_gallery")
 
 if __name__ == '__main__':
     main()
