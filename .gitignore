@@ -123,3 +123,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Image folder used by program to transfer images from web to instagram
+images/
