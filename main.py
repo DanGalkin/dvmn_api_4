@@ -1,6 +1,10 @@
 import requests
 import os
+from os import listdir
+from os.path import isfile, join
 from PIL import Image
+from dotenv import load_dotenv
+from instabot import Bot
 
 def download_image(url, file_name):
     response = requests.get(url, verify=False)
@@ -78,8 +82,26 @@ def centered_square_crop(image_file_name):
 	cropped_image = image.crop(crop_coordinates)
 	cropped_image.save(image_file_name)
 
+def publish_to_instagram_from_folder(folder_name):
+	bot = Bot()
+	bot.login(username=os.getenv("INSTAGRAM_LOGIN"), password=os.getenv("INSTAGRAM_PASSWORD"))
+	for image in get_folder_files_list(folder_name):
+		image_path = folder_name + "/" + image
+		bot.upload_photo(image_path)
+
+def get_folder_files_list(folder_name):
+	files = []
+	for child in listdir(folder_name):
+		if isfile(join(folder_name, child)):
+			files.append(child)
+	return files
+
 def main():
-    get_hubble_photos_from_collection("stsci_gallery")
+    #get_hubble_photos_from_collection("stsci_gallery")
+    #fetch_hubble_photo(3883)
+    #fetch_spacex_last_launch()
+    publish_to_instagram_from_folder("images")
 
 if __name__ == '__main__':
+    load_dotenv()
     main()
