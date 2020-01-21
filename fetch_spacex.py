@@ -29,7 +29,6 @@ def get_file_extension_from_link(link):
 
 def download_image(url, save_path):
     response = requests.get(url, verify=False)
-    #response.raise_for_status()
     with open(save_path, 'wb') as file:
         file.write(response.content)
 
