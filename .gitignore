@@ -126,3 +126,14 @@ dmypy.json
 
 # Image folder used by program to transfer images from web to instagram
 images/
+
+#instabot supplementary files
+blacklist.txt
+comments.txt
+followed.txt
+friends.txt
+skipped.txt
+unfollowed.txt
+whitelist.txt
+*_uuid_and_cookie.json
+*.checkpoint
