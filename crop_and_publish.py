@@ -13,7 +13,7 @@ def publish_to_instagram_from_folder(folder_path):
     for image in get_folder_files_list(folder_path):
         image_path = folder_path + "/" + image
         crop_image_to_square(image_path)
-        bot.upload_photo(image_path)
+        bot.upload_photo(image_path, options={"rename": False})
 
 def get_folder_files_list(folder_path):
     files = []
