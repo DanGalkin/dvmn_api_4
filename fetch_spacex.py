@@ -6,7 +6,7 @@ API_METHOD = "https://api.spacexdata.com/v3/launches"
 NAME_PREFIX = "spacex"
 
 def fetch_spacex_last_launch():
-	download_photos_from_links(get_latest_spacex_photo_links())
+    download_photos_from_links(get_latest_spacex_photo_links())
 
 def get_latest_spacex_photo_links():
     image_links = []
@@ -20,12 +20,12 @@ def get_latest_spacex_photo_links():
     return image_links
 
 def download_photos_from_links(links):
-	for link_number, link in enumerate(links):
-		save_path = "{}/{}_{}.{}".format(IMAGES_FOLDER, NAME_PREFIX, link_number, get_file_extension_from_link(link))
-		download_image(link, save_path)
+    for link_number, link in enumerate(links):
+        save_path = "{}/{}_{}.{}".format(IMAGES_FOLDER, NAME_PREFIX, link_number, get_file_extension_from_link(link))
+        download_image(link, save_path)
 
 def get_file_extension_from_link(link):
-	return link.split('.')[-1];
+    return link.split('.')[-1];
 
 def download_image(url, save_path):
     response = requests.get(url, verify=False)
@@ -33,9 +33,9 @@ def download_image(url, save_path):
         file.write(response.content)
 
 def main():
-	if not os.path.exists(IMAGES_FOLDER):
-		os.makedirs(IMAGES_FOLDER)
-	fetch_spacex_last_launch()
+    if not os.path.exists(IMAGES_FOLDER):
+        os.makedirs(IMAGES_FOLDER)
+    fetch_spacex_last_launch()
 
 if __name__ == '__main__':
     main()
