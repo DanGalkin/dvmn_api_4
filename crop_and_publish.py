@@ -18,7 +18,8 @@ def publish_to_instagram_from_folder(folder_path):
 def get_folder_files_list(folder_path):
     files = []
     for child in listdir(folder_path):
-        if isfile(join(folder_path, child)):
+        child_path = join(folder_path, child)
+        if isfile(child_path):
             files.append(child)
     return files
 
