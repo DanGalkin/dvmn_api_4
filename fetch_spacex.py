@@ -1,5 +1,6 @@
 import requests
 import os
+from utils import download_image
 
 IMAGES_FOLDER = "images"
 API_METHOD = "https://api.spacexdata.com/v3/launches"
@@ -27,11 +28,6 @@ def download_photos_from_links(links):
         image_name = "{}_{}.{}".format(NAME_PREFIX, link_number, image_file_extension)
         save_path = os.path.join(IMAGES_FOLDER, image_name)
         download_image(link, save_path)
-
-def download_image(url, save_path):
-    response = requests.get(url, verify=False)
-    with open(save_path, 'wb') as file:
-        file.write(response.content)
 
 def main():
     os.makedirs(IMAGES_FOLDER, exist_ok = True)

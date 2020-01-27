@@ -1,5 +1,6 @@
 import requests
 import os
+from utils import download_image
 
 IMAGES_FOLDER = "images"
 API_COLLECTION_METHOD = "http://hubblesite.org/api/v3/images?page=all&collection_name="
@@ -31,11 +32,6 @@ def get_hubble_photo_links_by_id(id):
         for file in api_response.json()['image_files']:
             image_links.append("http:"+file['file_url'])
     return image_links
-
-def download_image(url, save_path):
-    response = requests.get(url, verify=False)
-    with open(save_path, 'wb') as file:
-        file.write(response.content)
 
 def main():
     os.makedirs(IMAGES_FOLDER, exist_ok = True)
