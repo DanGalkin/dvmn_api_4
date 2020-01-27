@@ -14,7 +14,7 @@ def fetch_hubble_photos_from_collection(collection_name):
         for photo in api_response.json():
             fetch_best_hubble_photo_by_id(photo["id"])
     else:
-        print("No such collection in Hubble API.")
+        return
 
 def fetch_best_hubble_photo_by_id(id):
     best_photo_link = get_hubble_photo_links_by_id(id)[-2]
@@ -42,7 +42,9 @@ def download_image(url, save_path):
 def main():
     if not os.path.exists(IMAGES_FOLDER):
         os.makedirs(IMAGES_FOLDER)
-    fetch_hubble_photos_from_collection(COLLECTION_NAME)
+    if not fetch_hubble_photos_from_collection(COLLECTION_NAME):
+        print("There is no such collection in Hubble API")
+
 
 if __name__ == '__main__':
     main()
