@@ -35,8 +35,7 @@ def get_hubble_photo_links_by_id(id):
 
 def main():
     os.makedirs(IMAGES_FOLDER, exist_ok = True)
-    if not fetch_hubble_photos_from_collection(COLLECTION_NAME):
-        print("There is no such collection in Hubble API")
+    fetch_hubble_photos_from_collection(COLLECTION_NAME)
 
 if __name__ == '__main__':
     main()
