@@ -18,7 +18,8 @@ def fetch_hubble_photos_from_collection(collection_name):
 
 def fetch_best_hubble_photo_by_id(id):
     best_photo_link = get_hubble_photo_links_by_id(id)[-2]
-    save_path = "{}/{}_{}.{}".format(IMAGES_FOLDER, NAME_PREFIX, str(id), get_file_extension_from_link(best_photo_link))
+    image_name = "{}_{}.{}".format(NAME_PREFIX, str(id), get_file_extension_from_link(best_photo_link))
+    save_path = os.path.join(IMAGES_FOLDER, image_name)
     download_image(best_photo_link, save_path)
 
 def get_hubble_photo_links_by_id(id):
