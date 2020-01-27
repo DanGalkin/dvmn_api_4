@@ -38,8 +38,7 @@ def download_image(url, save_path):
         file.write(response.content)
 
 def main():
-    if not os.path.exists(IMAGES_FOLDER):
-        os.makedirs(IMAGES_FOLDER)
+    os.makedirs(IMAGES_FOLDER, exist_ok = True)
     if not fetch_hubble_photos_from_collection(COLLECTION_NAME):
         print("There is no such collection in Hubble API")
 

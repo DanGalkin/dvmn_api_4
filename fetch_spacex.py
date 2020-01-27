@@ -33,8 +33,7 @@ def download_image(url, save_path):
         file.write(response.content)
 
 def main():
-    if not os.path.exists(IMAGES_FOLDER):
-        os.makedirs(IMAGES_FOLDER)
+    os.makedirs(IMAGES_FOLDER, exist_ok = True)
     fetch_spacex_last_launch()
 
 if __name__ == '__main__':
