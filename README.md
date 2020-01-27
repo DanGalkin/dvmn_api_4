@@ -7,6 +7,7 @@ Set of scripts to download photos from SpaceX and Hubble APIs and upload them to
 - **fetch_hubble.py** downloads best .jpg images from Hubble "stsci_gallery" photo collection (you can modify global variable *COLLECTION_NAME* to try dofferent collections like "holiday_cards", "wallpaper", "spacecraft", "news", "printshop")
 - **fetch_spacex.py** downloads latest available photos of the SpaceX launches
 - **crop_and_publish.py** crops images in a folder to a square and publishes it to instagram using your credentials
+- **utils.py** contains shared functions for the scripts
 
 
 ### How to install
