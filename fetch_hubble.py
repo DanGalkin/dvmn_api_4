@@ -18,7 +18,8 @@ def fetch_hubble_photos_from_collection(collection_name):
 
 def fetch_best_hubble_photo_by_id(id):
     best_photo_link = get_hubble_photo_links_by_id(id)[-2]
-    image_name = "{}_{}.{}".format(NAME_PREFIX, str(id), get_file_extension_from_link(best_photo_link))
+    image_file_extension = get_file_extension_from_link(best_photo_link)
+    image_name = "{}_{}.{}".format(NAME_PREFIX, id, image_file_extension)
     save_path = os.path.join(IMAGES_FOLDER, image_name)
     download_image(best_photo_link, save_path)
 
@@ -44,7 +45,6 @@ def main():
         os.makedirs(IMAGES_FOLDER)
     if not fetch_hubble_photos_from_collection(COLLECTION_NAME):
         print("There is no such collection in Hubble API")
-
 
 if __name__ == '__main__':
     main()
