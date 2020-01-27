@@ -18,7 +18,7 @@ def fetch_hubble_photos_from_collection(collection_name):
 
 def fetch_best_hubble_photo_by_id(id):
     best_photo_link = get_hubble_photo_links_by_id(id)[-2]
-    image_file_extension = get_file_extension_from_link(best_photo_link)
+    image_file_extension = os.path.splitext(best_photo_link)[1]
     image_name = "{}_{}.{}".format(NAME_PREFIX, id, image_file_extension)
     save_path = os.path.join(IMAGES_FOLDER, image_name)
     download_image(best_photo_link, save_path)
@@ -31,9 +31,6 @@ def get_hubble_photo_links_by_id(id):
         for file in api_response.json()['image_files']:
             image_links.append("http:"+file['file_url'])
     return image_links
-
-def get_file_extension_from_link(link):
-    return link.split('.')[-1];
 
 def download_image(url, save_path):
     response = requests.get(url, verify=False)
