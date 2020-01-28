@@ -13,10 +13,10 @@ def get_latest_spacex_photo_links():
     image_links = []
     spacex_launches_response = requests.get(API_METHOD)
     if spacex_launches_response.ok:
-        spacex_launches_response_json = spacex_launches_response.json();
-        for i in range(1,len(spacex_launches_response_json)):
-            launch_to_check = len(spacex_launches_response_json) - i
-            image_links = spacex_launches_response_json[launch_to_check]['links']['flickr_images']
+        spacex_launches_response_decoded = spacex_launches_response.json();
+        for i in range(1,len(spacex_launches_response_decoded)):
+            launch_to_check = len(spacex_launches_response_decoded) - i
+            image_links = spacex_launches_response_decoded[launch_to_check]['links']['flickr_images']
             if image_links:
                 break;
     return image_links
