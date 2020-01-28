@@ -7,9 +7,9 @@ from instabot import Bot
 
 IMAGES_FOLDER = "images"
 
-def publish_to_instagram_from_folder(folder_path):
+def publish_to_instagram_from_folder(folder_path, credentials):
     bot = Bot()
-    bot.login(username=os.getenv("INSTAGRAM_LOGIN"), password=os.getenv("INSTAGRAM_PASSWORD"))
+    bot.login(username=credentials[0], password=credentials[1])
     for image in get_folder_files_list(folder_path):
         image_path = join(folder_path, image)
         crop_image_to_square(image_path)
@@ -42,7 +42,8 @@ def crop_image_to_square(image_path):
     cropped_image.save(image_path)
 
 def main():
-    publish_to_instagram_from_folder(IMAGES_FOLDER);
+    instagram_credentials = (os.getenv("INSTAGRAM_LOGIN"), os.getenv("INSTAGRAM_PASSWORD"))
+    publish_to_instagram_from_folder(IMAGES_FOLDER, instagram_credentials);
 
 if __name__ == '__main__':
     load_dotenv()
