@@ -24,8 +24,7 @@ def get_latest_spacex_photo_links():
 def download_photos_from_links(links):
     for link_number, link in enumerate(links):
         image_file_extension = os.path.splitext(link)[1]
-        print(image_file_extension)
-        image_name = f"{NAME_PREFIX}_{link_number}.{image_file_extension}"
+        image_name = f"{NAME_PREFIX}_{link_number}{image_file_extension}"
         save_path = os.path.join(IMAGES_FOLDER, image_name)
         download_image(link, save_path)
 
